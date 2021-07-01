@@ -26,11 +26,23 @@
 #include <string>
 #include "curl/curl.h"
 
-namespace Curl
-{
-	CURLcode perform(std::string &data, const std::string &URL, const std::string &referer = "", bool follow_redirect = false, unsigned timeout = 10);
-	
-	std::string escape(const std::string &s);
+namespace Curl {
+    enum class RequestType {
+        GET,
+        POST,
+    };
+
+    struct Options {
+        std::string referer;
+        std::string post_params;
+        unsigned timeout = 10;
+        bool follow_redirect{false};
+    };
+
+    CURLcode perform(std::string &data, const std::string &URL, RequestType type = RequestType::GET,
+                     const Options &options = {});
+
+    std::string escape(std::string_view s);
 }
 
 #endif // NCMPCPP_CURL_HANDLE_H

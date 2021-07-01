@@ -32,29 +32,33 @@ namespace
 	}
 }
 
-CURLcode Curl::perform(std::string &data, const std::string &URL, const std::string &referer, bool follow_redirect, unsigned timeout)
+CURLcode Curl::perform(std::string &data, const std::string &URL, RequestType type,
+                       const Options &options)
 {
 	CURLcode result;
 	CURL *c = curl_easy_init();
 	curl_easy_setopt(c, CURLOPT_URL, URL.c_str());
 	curl_easy_setopt(c, CURLOPT_WRITEFUNCTION, write_data);
 	curl_easy_setopt(c, CURLOPT_WRITEDATA, &data);
-	curl_easy_setopt(c, CURLOPT_CONNECTTIMEOUT, timeout);
+	curl_easy_setopt(c, CURLOPT_CONNECTTIMEOUT, options.timeout);
 	curl_easy_setopt(c, CURLOPT_NOSIGNAL, 1);
 	curl_easy_setopt(c, CURLOPT_USERAGENT, "ncmpcpp " VERSION);
-	if (follow_redirect)
+	if (options.follow_redirect)
 		curl_easy_setopt(c, CURLOPT_FOLLOWLOCATION, 1L);
-	if (!referer.empty())
-		curl_easy_setopt(c, CURLOPT_REFERER, referer.c_str());
+	if (!options.referer.empty())
+		curl_easy_setopt(c, CURLOPT_REFERER, options.referer.c_str());
+	if (type == RequestType::POST)
+        curl_easy_setopt(c, CURLOPT_POSTFIELDS, options.post_params.c_str());
+
 	result = curl_easy_perform(c);
 	curl_easy_cleanup(c);
 	return result;
 }
 
-std::string Curl::escape(const std::string &s)
+std::string Curl::escape(std::string_view s)
 {
-	char *cs = curl_easy_escape(0, s.c_str(), s.length());
-	std::string result(cs);
-	curl_free(cs);
-	return result;
+    char *cs = curl_easy_escape(nullptr, s.data(), static_cast<int>(s.length()));
+    std::string result(cs);
+    curl_free(cs);
+    return std::move(result);
 }

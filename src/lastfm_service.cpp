@@ -123,7 +123,9 @@ Service::Result ArtistInfo::processData(const std::string &data)
 				if (!lang.empty() && lang != "en")
 					boost::replace_first(url, "last.fm/music/", "last.fm/" + lang + "/music/");
 				// ...try to get the content of it...
-				CURLcode code = Curl::perform(wiki, url, "", true);
+                Curl::Options options;
+				options.follow_redirect = true;
+				CURLcode code = Curl::perform(wiki, url, Curl::RequestType::GET, options);
 
 				if (code != CURLE_OK)
 				{

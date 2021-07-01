@@ -78,7 +78,9 @@ LyricsFetcher::Result LyricsFetcher::fetch(const std::string &artist,
 	boost::replace_all(url, "%title%", Curl::escape(title));
 	
 	std::string data;
-	CURLcode code = Curl::perform(data, url, "", true);
+    Curl::Options options;
+    options.follow_redirect = true;
+    CURLcode code = Curl::perform(data, url, Curl::RequestType::GET, options);
 	
 	if (code != CURLE_OK)
 	{
@@ -173,7 +175,9 @@ LyricsFetcher::Result GoogleLyricsFetcher::fetch(const std::string &artist,
 	google_url += "&btnI=I%27m+Feeling+Lucky";
 	
 	std::string data;
-	CURLcode code = Curl::perform(data, google_url, google_url);
+    Curl::Options options;
+    options.referer = google_url;
+	CURLcode code = Curl::perform(data, google_url, Curl::RequestType::GET, options);
 	
 	if (code != CURLE_OK)
 	{
