@@ -160,6 +160,7 @@ struct Configuration
 	bool wrapped_search;
 	bool incremental_seeking;
 	bool now_playing_lyrics;
+	bool last_fm_scrobbling;
 	bool fetch_lyrics_in_background;
 	bool local_browser_show_hidden_files;
 	bool search_in_db;

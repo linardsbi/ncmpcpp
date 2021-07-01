@@ -750,6 +750,8 @@ void BindingsConfiguration::generateDefaults()
 		bind(k, Actions::Type::FetchLyricsInBackground);
 	if (notBound(k = stringToKey("alt-l")))
 		bind(k, Actions::Type::ToggleFetchingLyricsInBackground);
+    if (notBound(k = stringToKey("ctrl-o")))
+        bind(k, Actions::Type::ToggleLastFmScrobbling);
 	if (notBound(k = stringToKey("ctrl-l")))
 		bind(k, Actions::Type::ToggleScreenLock);
 	if (notBound(k = stringToKey("`")))

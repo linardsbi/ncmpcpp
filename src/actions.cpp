@@ -2732,6 +2732,13 @@ void ShowServerInfo::run()
 	myServerInfo->switchTo();
 }
 
+void ToggleLastFmScrobbling::run() {
+    Config.last_fm_scrobbling = !Config.last_fm_scrobbling;
+    Statusbar::printf("Last Fm scrobbling: %1%",
+                      Config.last_fm_scrobbling ? "on" : "off"
+    );
+}
+
 }
 
 namespace {
@@ -2794,6 +2801,7 @@ void populateActions()
 	insert_action(new Actions::ToggleLyricsFetcher());
 	insert_action(new Actions::ToggleFetchingLyricsInBackground());
 	insert_action(new Actions::TogglePlayingSongCentering());
+	insert_action(new Actions::ToggleLastFmScrobbling());
 	insert_action(new Actions::UpdateDatabase());
 	insert_action(new Actions::JumpToPlayingSong());
 	insert_action(new Actions::ToggleRepeat());

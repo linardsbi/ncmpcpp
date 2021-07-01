@@ -86,6 +86,7 @@ enum class Type
 	ToggleLyricsFetcher,
 	ToggleFetchingLyricsInBackground,
 	TogglePlayingSongCentering,
+	ToggleLastFmScrobbling,
 	UpdateDatabase,
 	JumpToPlayingSong,
 	ToggleRepeat,
@@ -690,6 +691,14 @@ struct TogglePlayingSongCentering: BaseAction
 	
 private:
 	virtual void run() override;
+};
+
+struct ToggleLastFmScrobbling: BaseAction
+{
+    ToggleLastFmScrobbling(): BaseAction(Type::ToggleLastFmScrobbling, "toggle_lastfm_scrobbling") { }
+
+private:
+    void run() override;
 };
 
 struct UpdateDatabase: BaseAction

@@ -234,6 +234,7 @@ void write_bindings(NC::Scrollpad &w)
 	key(w, Type::FetchLyricsInBackground, "Fetch lyrics for selected songs");
 	key(w, Type::ToggleLyricsFetcher, "Toggle lyrics fetcher");
 	key(w, Type::ToggleFetchingLyricsInBackground, "Toggle fetching lyrics for playing songs in background");
+	key(w, Type::ToggleLastFmScrobbling, "Toggle LastFm scrobbling");
 	key(w, Type::ShowLyrics, "Show/hide song lyrics");
 	w << '\n';
 	key(w, Type::Quit, "Quit");
