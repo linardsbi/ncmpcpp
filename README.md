@@ -6,6 +6,7 @@ Project page - http://rybczak.net/ncmpcpp/
 
 ### Main features:
 
+* **LastFm scrobbling**
 * tag editor
 * playlist editor
 * easy to use search engine

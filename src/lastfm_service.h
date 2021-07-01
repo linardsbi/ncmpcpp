@@ -35,7 +35,7 @@ struct Service
 	typedef std::map<std::string, std::string> Arguments;
 	typedef std::pair<bool, std::string> Result;
 	
-	Service(Arguments args) : m_arguments(args) { }
+	explicit Service(Arguments&& args) : m_arguments(std::move(args)) { }
 
 	virtual const char *name() = 0;
 	virtual Result fetch();
