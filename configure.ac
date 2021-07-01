@@ -1,15 +1,15 @@
-AC_INIT([ncmpcpp], [0.10_dev])
+AC_INIT([ncmpcpp],[0.10_dev])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE([subdir-objects])
 
 AC_CONFIG_MACRO_DIR([m4])
 
-AC_PREREQ(2.59)
+AC_PREREQ([2.71])
 
-AC_LANG_CPLUSPLUS
+AC_LANG([C++])
 AC_PROG_CXX
-AC_PROG_LIBTOOL
+LT_INIT
 
 AC_ARG_ENABLE(outputs, AS_HELP_STRING([--enable-outputs], [Enable outputs screen @<:@default=no@:>@]), [outputs=$enableval], [outputs=no])
 AC_ARG_ENABLE(visualizer, AS_HELP_STRING([--enable-visualizer], [Enable music visualizer screen @<:@default=no@:>@]), [visualizer=$enableval], [visualizer=no])
@@ -70,17 +70,17 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[ ]])],
 )
 CXXFLAGS="$old_CXXFLAGS $fast_math"
 
-# -std=c++14
-AC_MSG_CHECKING([whether compiler supports -std=c++14])
+# -std=c++20
+AC_MSG_CHECKING([whether compiler supports -std=c++20])
 old_CXXFLAGS="$CXXFLAGS"
-CXXFLAGS="-std=c++14"
+CXXFLAGS="-std=c++20"
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[ ]])],
 	AC_MSG_RESULT([yes])
-		std_cpp14="-std=c++14",
+		std_cpp20="-std=c++20",
 	AC_MSG_RESULT([no])
 		AC_MSG_ERROR([[Your compiler doesn't seem to support C++14, please upgrade (GCC >= 5)]])
 )
-CXXFLAGS="$old_CXXFLAGS $std_cpp14"
+CXXFLAGS="$old_CXXFLAGS $std_cpp20"
 
 # generic lambda expressions support
 AC_MSG_CHECKING([whether compiler supports generic lambda expressions])
